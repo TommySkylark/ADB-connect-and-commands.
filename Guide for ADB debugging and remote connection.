@@ -1,0 +1,51 @@
+#Here we gonna connect Android device with computer creating port via Terminal. We can use it for remote debugging, accessing device services and etc. We need to make sure our device has Developer mode available and bluetooth debugging on.
+adb forward tcp:4444 localabstract:/adb-hub
+#You can change the port numbers to different values as needed, but it's important to be mindful of a few things:
+1)Port Availability: Ensure that the ports you choose are not already in use by other applications or services on your computer.
+2)Firewall and Security: Be aware of any firewall rules or security policies that might restrict traffic on certain ports. 
+3)Consistency: If you're forwarding ports for specific purposes (like debugging), ensure consistency in the port numbers across your setup.
+4)ADB Compatibility: While you can technically choose any available port number, sticking to commonly used port numbers (like 4444 for ADB connections) can ensure compatibility and interoperability with existing tools and documentation.
+So I would recommend using the following:
+adb connect 127.0.0.1:4444
+Disconnecting:
+adb disconnect 127.0.0.1:4444
+You will need to repeat all the steps if you want to reconnect or add new divice.
+Now the part we all came here to do is the commands. Commands can be treaky. Few factors can affect the output. The device type, size of the APK, memory, security and more.
+Here is the list of commands you can use.
+
+adb devices: Lists all devices connected to the computer via ADB.
+adb shell: Opens a shell on the device, allowing you to execute commands directly on the device's shell.
+adb install <path_to_apk>: Installs an Android application package (APK) onto the device.
+adb uninstall <package_name>: Uninstalls an application from the device.
+adb push <local> <remote>: Copies a file or directory from the local computer to the device.
+adb pull <remote> <local>: Copies a file or directory from the device to the local computer.
+adb logcat: Displays the device log in real-time.
+adb reboot: Reboots the device.
+adb forward <local> <remote>: Forwards connections from a specified port on the host to a specified port on the device.
+adb connect <device_ip>: Connects to a device over TCP/IP. Useful for wireless debugging.
+adb disconnect <device_ip>: Disconnects from a device connected over TCP/IP.
+adb backup <package_name>: Initiates a backup of the specified package and its data.
+adb restore <backup_file>: Restores a backup created with adb backup.
+adb shell pm list packages: Lists all installed packages on the device.
+adb shell dumpsys battery: Displays battery statistics and information.
+adb shell am start <package_name>/<activity_name>: Launches an activity in an application.
+adb shell input keyevent <key_code>: Simulates key presses on the device.
+adb shell screencap <filename>: Captures a screenshot of the device screen and saves it to a file.
+adb shell screenrecord <filename>: Records the screen of the device and saves it to a file.
+
+Examples:
+adb -s 127.0.0.1 install mariobros123.apk
+if you have multiple files or apk.
+You will need to use 
+adb -s 127.0.0.1 install-multiple
+Uninstalling: 
+adb -s 127.0.0.1 uninstall
+adb -s 127.0.0.1 uninstall-multiple
+Taking and pulling out screenshots:
+You will need to make sure that the name of screenshot is the same in both lines, otherwise it wont pull it. 
+The location of the pull(where screenshot gonna appear) can be changed to anything, in my case I assigned it to Desktop folder.
+adb -s 127.0.0.1 shell screencap -p /sdcard/screenshot.png 
+adb -s 127.0.0.1 pull -p /sdcard/screenshot.png ~/Desktop/
+
+
+Please feel free to reach me if you need any help regarding remote adb debugging and connection.
