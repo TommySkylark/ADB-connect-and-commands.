@@ -33,9 +33,15 @@ adb shell input keyevent <key_code>: Simulates key presses on the device.
 adb shell screencap <filename>: Captures a screenshot of the device screen and saves it to a file.
 adb shell screenrecord <filename>: Records the screen of the device and saves it to a file.
 
+
+NOTE: MAKE SURE YOU UNLOCK YOUR DEVICE BEFORE INPUTING COMMANDS AS TERMINAL DOES NOT HAVE PERMISSION TO UNLOCK DEVICE.
+OR you can use SODO command before each command line.
+FOR Example:
+sudo adb -s 127.0.0.1 shell screenrecord --verbose 
 Examples:
+Single file:
 adb -s 127.0.0.1 install mariobros123.apk
-if you have multiple files or apk.
+If you have multiple files or apk:
 You will need to use 
 adb -s 127.0.0.1 install-multiple
 Uninstalling: 
@@ -46,6 +52,13 @@ You will need to make sure that the name of screenshot is the same in both lines
 The location of the pull(where screenshot gonna appear) can be changed to anything, in my case I assigned it to Desktop folder.
 adb -s 127.0.0.1 shell screencap -p /sdcard/screenshot.png 
 adb -s 127.0.0.1 pull -p /sdcard/screenshot.png ~/Desktop/
+Recording video and pulling it. (Make sure device is unlocked)
+Start Recording:
+adb -s 127.0.0.1 shell screenrecord --verbose /sdcard/screenrecord.mp4
+To stop recording:
+Control+C
+To pull video out:
+adb -s 127.0.0.1 pull /sdcard/screenrecord.mp4 ~/Desktop/
 
 
 Please feel free to reach me if you need any help regarding remote adb debugging and connection.
